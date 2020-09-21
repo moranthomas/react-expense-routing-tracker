@@ -12,7 +12,7 @@ const person = (props) => {
             <img src={Images[props.index].icon}  width='120px'></img>
             <h3> My hobbies are: </h3> {props.hobbies}
             <p> {props.children}</p>
-            <input type="text" onChange={props.changed} />
+            <input type="text" onChange={props.changed} value={props.name} />
         </div>
         )
 };
