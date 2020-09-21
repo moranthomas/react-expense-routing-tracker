@@ -5,10 +5,6 @@ import About from './components/About.js';
 import Playground from './components/Playground.js';
 import Header from './layout/Header';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import alannah from './ala.jpeg';
-import hayley from './hay.jpg';
-import brooke from './brooke.jpg';
-
 
 //function App() {
 
@@ -19,24 +15,12 @@ class App extends Component {
       {name: 'Michael Jordan', age: 58,   hobbies: 'Basketball',   index: 0 },
       {name: 'Tiger Woods', age: 45,      hobbies: 'Golf',   index: 1 },
       {name: 'Mohammed Ali', age: 83,     hobbies: 'Boxing',   index: 2}
-    ]
-  }
-
-  nameChangedHandler = (event) =>  {
-    this.setState(
-      {
-        persons: [
-          {name: event.target.value, age: 58, index: 0 },
-          {name: event.target.value, age: 63, index: 1 },
-          {name: event.target.value, age: 33, index: 2}
-        ]
-      }
-    )
+    ],
+    showPersons: false
   }
 
   switchNameHandler = () => {
-    // DON'T DO THIS - > this.state.persons[0].name = 'john';
-    // INSTEAD USE the setState( ) method
+    // DON'T DO THIS - > this.state.persons[0].name = 'john'; // INSTEAD always USE the setState( ) method
     this.setState(
        {
          persons: [
@@ -48,7 +32,58 @@ class App extends Component {
     )
   }
 
+  // This takes an event as an argument since it is being called from the input field
+  nameChangedHandler = (event) =>  {
+    this.setState(
+      {
+        persons: [
+          {name: this.state.persons[0].name, age: 58, index: 0 },
+          {name: event.target.value, age: 45, index: 1 },
+          {name: this.state.persons[2].name, age: 83, index: 2}
+        ]
+      }
+    )
+  }
+
+  togglePersonsHandler = (event) => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow } );
+  }
+
   render() {
+
+    // we can write whatrver code we want here before the return() block since this is not JSX !
+
+    let persons = null;
+
+    if(this.state.showPersons) {
+      persons = (
+        <div>
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+          hobbies={this.state.persons[0].hobbies}
+          index={this.state.persons[0].index}
+          changed={this.nameChangedHandler} >
+        </Person>
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          hobbies={this.state.persons[1].hobbies}
+          index={this.state.persons[1].index}
+          changed={this.nameChangedHandler} >
+        </Person>
+        <Person
+          name={this.state.persons[2].name}
+          age={this.state.persons[2].age}
+          hobbies={this.state.persons[2].hobbies}
+          index={this.state.persons[2].index}
+          changed={this.nameChangedHandler} >
+        </Person>
+      </div>
+      );
+    }
+
     return (
 
       <Router>
@@ -58,28 +93,9 @@ class App extends Component {
 
             <h1> Famous People </h1>
             <button onClick={this.switchNameHandler}>Switch Names</button>
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-              hobbies={this.state.persons[0].hobbies}
-              index={this.state.persons[0].index}
-              changed={this.nameChangedHandler} >
-            </Person>
 
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-              hobbies={this.state.persons[1].hobbies}
-              index={this.state.persons[1].index}
-              changed={this.nameChangedHandler} >
-            </Person>
-            <Person
-              name={this.state.persons[2].name}
-              age={this.state.persons[2].age}
-              hobbies={this.state.persons[2].hobbies}
-              index={this.state.persons[2].index}
-              changed={this.nameChangedHandler} >
-            </Person>
+            <button onClick={this.togglePersonsHandler}>Toggle </button>
+            {persons}
 
             <Route path="/about" component={About} />
 
