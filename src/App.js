@@ -12,9 +12,9 @@ class App extends Component {
 
   state = {
     persons: [
-      {name: 'Michael Jordan', age: 58,   hobbies: 'Basketball',   index: 0 },
-      {name: 'Tiger Woods', age: 45,      hobbies: 'Golf',   index: 1 },
-      {name: 'Mohammed Ali', age: 83,     hobbies: 'Boxing',   index: 2}
+      {id: 1000, name: 'Michael Jordan', age: 58,   hobbies: 'Basketball',   index: 0 },
+      {id: 2000, name: 'Tiger Woods', age: 45,      hobbies: 'Golf',   index: 1 },
+      {id: 3000, name: 'Mohammed Ali', age: 83,     hobbies: 'Boxing',   index: 2}
     ],
     showPersons: false
   }
@@ -33,16 +33,37 @@ class App extends Component {
   }
 
   // This takes an event as an argument since it is being called from the input field
-  nameChangedHandler = (event) =>  {
+  nameChangedHandler = (event, id) => {
+
+    // need to find the person in the array that we have clicked on using the index
+    const personIndex = this.state.persons.findIndex(p => {
+      // return true if this is the person that clicked
+      return p.id === id
+    });
+
+    // it's good practice to not mutate the state directly (a person is a js object) so the better approach
+    // is to create a new javascript object and use SPREAD to copy the original object into a new object.
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+
+    // can modify now as person is a new object
+    person.name = event.target.value;
+    const newPersons = [...this.state.persons];
+    // now just modify the person at that index
+    newPersons[personIndex] = person;
+
     this.setState(
-      {
-        persons: [
-          {name: this.state.persons[0].name, age: 58, index: 0 },
-          {name: event.target.value, age: 45, index: 1 },
-          {name: this.state.persons[2].name, age: 83, index: 2}
-        ]
-      }
+      { persons: newPersons }
     )
+  }
+
+  deletePersonHandler = (personIndex) => {
+    // fetch all the persons by creating a copy using slice();
+    const persons = this.state.persons.slice();  // Alternatively you can use spread operator [...this.state.persons]
+    // Arrays and objects are references - so you can update a const persons as it is just a reference
+    persons.splice(personIndex, 1);     // remove one element, starting at personIndex
+    this.setState({persons: persons})   // set state to the updated persons
   }
 
   togglePersonsHandler = (event) => {
@@ -59,28 +80,19 @@ class App extends Component {
     if(this.state.showPersons) {
       persons = (
         <div>
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          hobbies={this.state.persons[0].hobbies}
-          index={this.state.persons[0].index}
-          changed={this.nameChangedHandler} >
-        </Person>
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          hobbies={this.state.persons[1].hobbies}
-          index={this.state.persons[1].index}
-          changed={this.nameChangedHandler} >
-        </Person>
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age}
-          hobbies={this.state.persons[2].hobbies}
-          index={this.state.persons[2].index}
-          changed={this.nameChangedHandler} >
-        </Person>
-      </div>
+          {
+            this.state.persons.map((person, index) => {
+              return <Person
+                key={person.id}
+                click={ () => this.deletePersonHandler(index) }
+                name={person.name}
+                age={person.age}
+                hobbies={person.hobbies}
+                index={person.index}
+                changed={ (event) => this.nameChangedHandler(event, person.id) }/>
+            })
+          }
+        </div>
       );
     }
 
