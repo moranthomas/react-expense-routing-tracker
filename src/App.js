@@ -5,6 +5,7 @@ import About from './components/About.js';
 import Playground from './components/Playground.js';
 import Header from './layout/Header';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import styled from 'styled-components'
 
 //function App() {
 
@@ -73,7 +74,37 @@ class App extends Component {
 
   render() {
 
-    // we can write whatrver code we want here before the return() block since this is not JSX !
+    // we can write whatever code we want here before the return() block since this is not JSX !
+
+    const btnStyle = {
+      display: 'inline-block',
+      border: 'none',
+      background: '#555',
+      color: '#fff',
+      padding: '7px 20px',
+      cursor: 'pointer',
+      margin: '20px'
+    }
+
+    const StyledButton = styled.button`
+      display: inline-block;
+      border: none;
+      background-color: ${ props => props.alt ? 'red' : 'green' };
+      color: #fff;
+      padding: 7px 20px;
+      cursor: pointer;
+      margin: 20px;
+
+      &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+        color:black;
+      }
+
+    ` ;
+
+
+
+
 
     let persons = null;
 
@@ -94,6 +125,9 @@ class App extends Component {
           }
         </div>
       );
+
+      btnStyle.background = 'red';
+
     }
 
     return (
@@ -104,10 +138,13 @@ class App extends Component {
           <Header />
 
             <h1> Famous People </h1>
-            <button onClick={this.switchNameHandler}>Switch Names</button>
 
-            <button onClick={this.togglePersonsHandler}>Toggle </button>
+            <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}> Show/Hide </StyledButton>
+
+            <button style={btnStyle} onClick={this.switchNameHandler}>Switch Names</button>
+
             {persons}
+
 
             <Route path="/about" component={About} />
 
