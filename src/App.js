@@ -1,11 +1,13 @@
-import React, {Component} from 'react';
-import './App.css';
-import Person from './components/Person.js';
-import About from './components/About.js';
-import Playground from './components/Playground.js';
-import Header from './layout/Header';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components'
+
+import About from './components/About.js';
+import Market from './components/Market.js';
+import Person from './components/Person.js';
+import Header from './layout/Header';
+
+import './App.css';
 
 //function App() {
 
@@ -137,7 +139,7 @@ class App extends Component {
           <div className="container">
           <Header />
 
-            <h1> Famous People </h1>
+           {/**<h1> Deposit </h1> **/}
 
             <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}> Show/Hide </StyledButton>
 
@@ -148,7 +150,7 @@ class App extends Component {
 
             <Route path="/about" component={About} />
 
-            <Route path="/play" component={Playground} />
+            <Route path="/market" component={Market} />
           </div>
         </div>
       </Router>

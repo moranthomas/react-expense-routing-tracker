@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-
-export class Playground extends Component {
+export class Market extends Component {
 
   constructor(props) {
     super(props);
@@ -13,7 +12,7 @@ export class Playground extends Component {
   render() {
       return (
       <div>
-          <h1> Playground </h1>
+          <h1> Market </h1>
           <Options
             options={this.state.options}/>
           <AddOption />
@@ -24,7 +23,7 @@ export class Playground extends Component {
   }
 }
 
-export default Playground
+export default Market
 
 class Options extends Component {
 
