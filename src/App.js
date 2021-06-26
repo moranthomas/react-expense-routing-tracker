@@ -3,8 +3,13 @@ import { Route, BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components'
 
 import About from './components/About.js';
+import { AddTransaction } from './components/AddTransaction';
+import { Balance } from './components/Balance.js';
+import { IncomeExpenses } from './components/IncomeExpenses';
 import Market from './components/Market.js';
 import Person from './components/Person.js';
+import { TransactionList } from './components/TransactionList';
+import { GlobalProvider } from './context/GlobalState';
 import Header from './layout/Header';
 
 import './App.css';
@@ -23,7 +28,6 @@ class App extends Component {
   }
 
   switchNameHandler = () => {
-    // DON'T DO THIS - > this.state.persons[0].name = 'john'; // INSTEAD always USE the setState( ) method
     this.setState(
        {
          persons: [
@@ -77,7 +81,6 @@ class App extends Component {
   render() {
 
     // we can write whatever code we want here before the return() block since this is not JSX !
-
     const btnStyle = {
       display: 'inline-block',
       border: 'none',
@@ -101,15 +104,9 @@ class App extends Component {
         background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
         color:black;
       }
-
     ` ;
 
-
-
-
-
     let persons = null;
-
     if(this.state.showPersons) {
       persons = (
         <div>
@@ -127,30 +124,30 @@ class App extends Component {
           }
         </div>
       );
-
       btnStyle.background = 'red';
 
     }
 
     return (
-
       <Router>
         <div className="App">
           <div className="container">
           <Header />
 
+          <div className="container">
+            <Balance />
+            <IncomeExpenses />
+            <TransactionList />
+            <AddTransaction />
+          </div>
+
            {/**<h1> Deposit </h1> **/}
-
             <StyledButton alt={this.state.showPersons} onClick={this.togglePersonsHandler}> Show/Hide </StyledButton>
-
             <button style={btnStyle} onClick={this.switchNameHandler}>Switch Names</button>
-
             {persons}
-
-
             <Route path="/about" component={About} />
-
             <Route path="/market" component={Market} />
+
           </div>
         </div>
       </Router>
