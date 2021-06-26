@@ -14,8 +14,7 @@ const centerFlex = {
     left: '8%',
     transform: 'translate( -50%)',
     width: '120px'
-  }
-
+}
 const headerStyle = {
     background: 'f8ecf4',
     textAlign: 'center',

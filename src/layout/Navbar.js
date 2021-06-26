@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import convexityLogoLight from '../ConvexityLogoLight.png';
 import { Route } from 'react-router-dom';
-import Deposit from './Deposit.js';
+import Deposit from './Deposit';
 import Market from './Market.js';
 import Borrow from './Borrow.js';
 

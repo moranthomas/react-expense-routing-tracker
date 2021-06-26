@@ -25,17 +25,43 @@ body {
   width: 450px;
 }
 
-/* .App-header {
-  background-color: #342d28;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-} */
+.container-borrow {
+  padding: 0 1rem;
+  margin: 40px auto;
+  width: 450px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
 
+.wrapper {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-gap: 10px;
+}
+
+.box {
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 100%;
+}
+
+.info-icon-box {
+  float: 'right';
+  text-align: right;
+}
+
+.implied-rate-box {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #9c88ff;
+}
+
+.lock-in-fixed-rate {
+  margin-top: 40px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #ff88e5;
+}
 
 h1 {
   letter-spacing: 1px;
