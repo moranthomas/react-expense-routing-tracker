@@ -54,6 +54,7 @@ const connectWalletBtn = {
     marginBottom: '15px',
     padding: '10px',
     borderRadius: '5px',
+    borderColor: 'white',
     color: 'white',
     backgroundColor: '#BE9325'
   }
