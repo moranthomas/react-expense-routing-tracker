@@ -1,4 +1,4 @@
-import React from 'react';
+import  React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import convexityLogoLight from '../ConvexityLogoLight.png';
 import { Route } from 'react-router-dom';
@@ -7,7 +7,12 @@ import Market from './Market.js';
 import Borrow from './Borrow.js';
 
 
-export default function Navbar() {
+export default function Navbar(props) {
+
+    // Declare a new state variable, which we'll call "fromAccount"
+    const [fromAccount, setFromAccount] = useState();
+    const [networkId, setNetworkId] = useState();
+
     return (
         <header style={headerStyle}>
             <div style={centerFlex}>
@@ -23,9 +28,35 @@ export default function Navbar() {
                 <Route path="/borrow" component={Borrow} />
                 <Route path="/market" component={Market} />
             </div>
+            <div style={connectorStyle}>
+                <button style={connectWalletBtn} onClick={() => setFromAccount("0x123")}>
+                    Connect Wallet
+                </button>
+                <p style = {accountsStyle} >Account: {props.displayAccount}</p>
+                <p style = {accountsStyle} >NetworkID: {props.networkId}</p>
+                {/* <p style = {accountsStyle} >Your account balance: {this.state.accountBalance} Eth </p> */}
+            </div>
+
         </header>
     )
 }
+
+const accountsStyle = { fontSize: 16, marginBottom: '15px' };
+
+const connectorStyle = {
+    position: 'fixed',
+    top: '10%',
+    right: '10%',
+    color: '#372b25',
+}
+
+const connectWalletBtn = {
+    marginBottom: '15px',
+    padding: '10px',
+    borderRadius: '5px',
+    color: 'white',
+    backgroundColor: '#BE9325'
+  }
 
 const centerFlex = {
     position: 'fixed',
